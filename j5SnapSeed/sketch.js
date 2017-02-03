@@ -1,3 +1,4 @@
+
 //needs recursive definition.. 
 //n! = n * (n-1)!
 
@@ -16,24 +17,47 @@ needs treminating condition
 
 
 //branch obj.. start end display function.. 
+var video;
+var snapshots = [];
 
-var angle = 0;
-var slider;
-var tree = [];
-var count = 0;
-var leaves = [];
+
 
 function setup(){
-	createCanvas(800,800); //bckgrnd
-	slider = createSlider(0,TWO_PI,PI/2,0.01);
-	var a = createVector(width/2, height);
-	var b = createVector(width/2,height-200);
-	var rut = new branch(a,b);
-	tree[0] = rut;
+	createCanvas(840,240); //bckgrnd
+	background(51);
+	video = createCapture(VIDEO);
+	video.size(320,240);
+	button = createButton("snap");
+	button.mousePressed(takesnap); //pass the function.. 
+}
+
+function takesnap(){
+	snapshots.push(video.get());
+
+	//image(video, 0,0);
 
 }
 
-function mousePressed(){
+function draw(){
+	var w = 60;
+	var h =80;
+	var x=0;
+	var y=0;
+	for(var i =0; i<snapshots.length;i++){
+		tint(255,50);
+		image(snapshots[i],x,y,w,h);
+		x+=w
+		if(x>width){
+			x=0;
+			y+=h;
+		}
+	}
+	tint(255,0,150);
+	//image(video, 0,0);
+
+}
+
+/*function mousePressed(){
 
 	for(var i=tree.length-1; i>=0; i--){
 		if(!tree[i].finished){
@@ -52,9 +76,9 @@ function mousePressed(){
 				}
 		}
 	}
-}
+}*/
 
-function draw(){
+/*function draw(){
 	background(50);
 	for(var i=0;i<tree.length;i++)
 	{
@@ -75,10 +99,10 @@ function draw(){
 
 	/*stroke(230);
 	translate(400,height);
-	branch(250);*/
+	branch(250);
 	 //trunk..
-	  
-}
+
+}*/
 
 /*function branch(len){
 	
